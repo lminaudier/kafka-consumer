@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'kafka/consumer/version'
+require 'kafka_consumer/consumer/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "kafka-consumer"
-  spec.version       = Kafka::Consumer::VERSION
+  spec.version       = KafkaConsumer::Consumer::VERSION
   spec.authors       = ["Willem van Bergen"]
   spec.email         = ["willem@vanbergen.org"]
   spec.summary       = %q{High-level consumer for Kafka}

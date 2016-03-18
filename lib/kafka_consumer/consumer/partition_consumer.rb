@@ -1,4 +1,4 @@
-module Kafka
+module KafkaConsumer
   class Consumer
     class PartitionConsumer
 

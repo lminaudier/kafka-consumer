@@ -3,11 +3,11 @@ require "poseidon"
 require "thread"
 require "logger"
 
-require "kafka/consumer/message"
-require "kafka/consumer/partition_consumer"
-require "kafka/consumer/version"
+require "kafka_consumer/consumer/message"
+require "kafka_consumer/consumer/partition_consumer"
+require "kafka_consumer/consumer/version"
 
-module Kafka
+module KafkaConsumer
   class Consumer
     include Enumerable
 

@@ -18,7 +18,7 @@ class PartitionDistributionTest < Minitest::Test
     instances = [Kazoo::Consumergroup::Instance.new(@group, id: '1')]
     instance_copy = Kazoo::Consumergroup::Instance.new(@group, id: '1')
 
-    distribution = Kafka::Consumer.distribute_partitions(instances, @partitions)
+    distribution = KafkaConsumer::Consumer.distribute_partitions(instances, @partitions)
     assert_equal Set.new(instances), Set.new(distribution.keys)
     assert_equal Set.new(@partitions), Set.new(distribution.values.flatten)
 
@@ -31,7 +31,7 @@ class PartitionDistributionTest < Minitest::Test
       Kazoo::Consumergroup::Instance.new(@group, id: '2'),
     ]
 
-    distribution = Kafka::Consumer.distribute_partitions(instances, @partitions)
+    distribution = KafkaConsumer::Consumer.distribute_partitions(instances, @partitions)
     assert_equal Set.new(instances), Set.new(distribution.keys)
     assert_equal Set.new(@partitions), Set.new(distribution.values.flatten)
 
@@ -47,7 +47,7 @@ class PartitionDistributionTest < Minitest::Test
       Kazoo::Consumergroup::Instance.new(@group, id: '3'),
     ]
 
-    distribution = Kafka::Consumer.distribute_partitions(instances, @partitions)
+    distribution = KafkaConsumer::Consumer.distribute_partitions(instances, @partitions)
     assert_equal Set.new(instances), Set.new(distribution.keys)
     assert_equal Set.new(@partitions), Set.new(distribution.values.flatten)
 
@@ -64,7 +64,7 @@ class PartitionDistributionTest < Minitest::Test
       Kazoo::Consumergroup::Instance.new(@group, id: '4'),
     ]
 
-    distribution = Kafka::Consumer.distribute_partitions(instances, @partitions)
+    distribution = KafkaConsumer::Consumer.distribute_partitions(instances, @partitions)
     assert_equal Set.new(instances), Set.new(distribution.keys)
     assert_equal Set.new(@partitions), Set.new(distribution.values.flatten)
 
@@ -83,7 +83,7 @@ class PartitionDistributionTest < Minitest::Test
       Kazoo::Consumergroup::Instance.new(@group, id: '5'),
     ]
 
-    distribution = Kafka::Consumer.distribute_partitions(instances, @partitions)
+    distribution = KafkaConsumer::Consumer.distribute_partitions(instances, @partitions)
     assert_equal Set.new(instances[0..3]), Set.new(distribution.keys)
     assert_equal Set.new(@partitions), Set.new(distribution.values.flatten)
 
@@ -99,19 +99,19 @@ class PartitionDistributionTest < Minitest::Test
     partitions = (0 .. rand(500)).map { |i| Kazoo::Partition.new(@topic, i) }
     instances = (0 .. rand(100)).map { |i| Kazoo::Consumergroup::Instance.new(@group, id: i.to_s) }
 
-    distribution = Kafka::Consumer.distribute_partitions(instances, partitions)
+    distribution = KafkaConsumer::Consumer.distribute_partitions(instances, partitions)
     assert_equal [partitions.length, instances.length].min, distribution.keys.length
     assert_equal Set.new(partitions), Set.new(distribution.values.flatten)
   end
 
   def test_assign_zero_partitions
     instances = [Kazoo::Consumergroup::Instance.new(@group, id: '1')]
-    distribution = Kafka::Consumer.distribute_partitions(instances, [])
+    distribution = KafkaConsumer::Consumer.distribute_partitions(instances, [])
     assert distribution.empty?
   end
 
   def test_assign_to_zero_instances
-    distribution = Kafka::Consumer.distribute_partitions([], @partitions)
+    distribution = KafkaConsumer::Consumer.distribute_partitions([], @partitions)
     assert distribution.empty?
   end
 end

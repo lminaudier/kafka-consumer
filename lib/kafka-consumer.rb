@@ -1,1 +1,1 @@
-require 'kafka/consumer'
+require 'kafka_consumer/consumer'

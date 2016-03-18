@@ -1,5 +1,5 @@
 require "bundler/gem_tasks"
-require "kafka/consumer"
+require "kafka_consumer/consumer"
 require "rake/testtask"
 require "benchmark"
 
@@ -14,7 +14,7 @@ namespace :kafka do
     name      = ENV["NAME"]      or raise "Specify NAME to name the consumergroup."
     topics    = ENV["TOPICS"]    or raise "Specify the TOPICS you want to consume. Use comma as separator."
 
-    consumer = Kafka::Consumer.new(name, topics.split(','), zookeeper: zookeeper, initial_offset: :earliest_offset)
+    consumer = KafkaConsumer::Consumer.new(name, topics.split(','), zookeeper: zookeeper, initial_offset: :earliest_offset)
 
     Signal.trap("TERM") { puts "TERM received"; consumer.interrupt }
     Signal.trap("INT")  { puts "INT received";  consumer.interrupt }
